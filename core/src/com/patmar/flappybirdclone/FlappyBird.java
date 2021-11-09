@@ -2,8 +2,11 @@ package com.patmar.flappybirdclone;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Circle;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import java.util.Random;
@@ -27,11 +30,17 @@ public class FlappyBird extends ApplicationAdapter {
 	float tubeShift[] = new float[tubesNumber];
 	float distanceBetweenTubes;
 
+	Circle birdCircle;
+	ShapeRenderer shapeRenderer;
+
 
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		background = new Texture("background.png");
+		birdCircle = new Circle();
+		shapeRenderer = new ShapeRenderer();
+
 		bird = new Texture[2];
 		bird[0] = new Texture("bird_wings_up.png");
 		bird[1] = new Texture("bird_wings_down.png");
@@ -79,13 +88,11 @@ public class FlappyBird extends ApplicationAdapter {
 
 		for (int i = 0; i < tubesNumber; i++) {
 
-			if (tubeX[i] < -topTube.getWidth()) {
+			if (tubeX[i] < - topTube.getWidth()) {
 				tubeX[i] = tubesNumber * distanceBetweenTubes;
 			} else {
 				tubeX[i] -= tubeSpeed;
 			}
-
-
 
 			batch.draw(topTube, tubeX[i],
 					Gdx.graphics.getHeight() / 2 + spaceBetweenTubes / 2 + tubeShift[i]);
@@ -105,6 +112,14 @@ public class FlappyBird extends ApplicationAdapter {
 				Gdx.graphics.getWidth() / 2 - bird[birdStateFlag].getWidth() / 2,
 				flyHeight);
 		batch.end();
+
+		birdCircle.set(Gdx.graphics.getWidth() / 2,
+				flyHeight + bird[birdStateFlag].getHeight() / 2,
+				bird[birdStateFlag].getWidth() / 2);
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.setColor(Color.CYAN);
+		shapeRenderer.circle(birdCircle.x, birdCircle.y, birdCircle.radius);
+		shapeRenderer.end();
 
 	}
 	
