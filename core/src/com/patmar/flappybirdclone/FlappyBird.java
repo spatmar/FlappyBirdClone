@@ -67,7 +67,7 @@ public class FlappyBird extends ApplicationAdapter {
 
 		gameOver = new Texture("game_over.png");
 
-		distanceBetweenTubes = Gdx.graphics.getWidth() / 2;
+		distanceBetweenTubes = Gdx.graphics.getWidth() / 2 * 1.5f;
 
 		initGame();
 
@@ -75,10 +75,10 @@ public class FlappyBird extends ApplicationAdapter {
 
 	public void initGame() {
 		flyHeight = Gdx.graphics.getHeight() / 2 - bird[0].getHeight() / 2;
+
 		for (int i = 0; i < tubesNumber; i++) {
-			tubeX[i] = Gdx.graphics.getWidth() * 2 + i * distanceBetweenTubes;
-			tubeShift[i] = (random.nextFloat() - 0.5f) *
-					(Gdx.graphics.getHeight() - spaceBetweenTubes - 200);
+			tubeX[i] = Gdx.graphics.getWidth() + i * distanceBetweenTubes;
+			tubeShift[i] = (random.nextFloat() - 0.5f) * (Gdx.graphics.getHeight() - spaceBetweenTubes - 200);
 			topTubeRectangles[i] = new Rectangle();
 			bottomTubeRectangles[i] = new Rectangle();
 		}
